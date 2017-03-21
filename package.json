@@ -1,0 +1,26 @@
+{
+  "name": "grid-filestorage",
+  "version": "0.1.0",
+  "description": "File storage module to save files into gridfs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/.bin/cucumber-js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ya-kostik/grid-filestorage.git"
+  },
+  "author": "Constantin T.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ya-kostik/grid-filestorage/issues"
+  },
+  "homepage": "https://github.com/ya-kostik/grid-filestorage#readme",
+  "dependencies": {
+    "mongodb": "^2.2.25"
+  },
+  "devDependencies": {
+    "cucumber": "^2.0.0-rc.6",
+    "eslint": "^3.18.0"
+  }
+}
