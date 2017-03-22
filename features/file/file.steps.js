@@ -24,7 +24,26 @@ defineSupportCode(function({ Given, Then }) {
   });
 
   // read
+  Given('в Grid есть файл {stringInDoubleQuotes}', function(filename, callback) {
+    mongodb.GridStore.exist(this.connection.db, filename, (err, exists) => {
+      callback(!exists);
+    });
+  });
 
+  Given('мы прочитаем {stringInDoubleQuotes} его через метод {stringInDoubleQuotes}', function(filename, method) {
+    this.payload.filestorage[method](filename).
+    then((stream) => {
+      this.payload.filestream = stream;
+    });
+  });
+
+  Then('нам вернется поток и из него мы прочитаем {stringInDoubleQuotes}', function(text, callback) {
+    if (!this.payload.filestream) throw new Error('Stream is not defined');
+    let data = '';
+    this.payload.filestream.on('data', chunk => data += chunk);
+    this.payload.filestream.on('end', () => callback(data !== text));
+    this.payload.filestream.on('error', err => callback(err));
+  });
 
   // remove
 });
