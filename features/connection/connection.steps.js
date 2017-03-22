@@ -2,14 +2,15 @@ const Filestorage = require('../../lib/Filestorage');
 
 const { defineSupportCode } = require('cucumber');
 
-let filestorage;
-
-defineSupportCode(function({ Before, After, Given, Then }) {
-  Given(/^в конструктор передали объект соединения$/, function (callback) {
-    filestorage = new Filestorage({});
+defineSupportCode(function({ Given, Then }) {
+  Given('в конструктор передали объект соединения и заголовок {stringInDoubleQuotes} вторым параметром', function (title, callback) {
+    this.payload.filestorage = new Filestorage({}, { title });
     callback();
   });
-  Then('оно сохранится в поле {stringInDoubleQuotes}', function (field, callback) {
-    callback(!filestorage.connection);
+  Then('соединение сохранится в поле {stringInDoubleQuotes}', function (field, callback) {
+    callback(!this.payload.filestorage.connection);
+  });
+  Then('заголовок попадет в поле {stringInDoubleQuotes} и оно будет равно {stringInDoubleQuotes}', function (field, title, callback) {
+    callback(!(this.payload.filestorage.options.title === title));
   });
 });
