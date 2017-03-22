@@ -1,6 +1,6 @@
 {
   "name": "grid-filestorage",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "File storage module to save files into gridfs",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,12 @@
     "type": "git",
     "url": "git+https://github.com/ya-kostik/grid-filestorage.git"
   },
-  "keywords": ["mongodb", "gridfs", "filestorage", "simple filestorage"],
+  "keywords": [
+    "mongodb",
+    "gridfs",
+    "filestorage",
+    "simple filestorage"
+  ],
   "author": "Constantin T.",
   "license": "MIT",
   "bugs": {
