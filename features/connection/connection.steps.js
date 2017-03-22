@@ -1,10 +1,10 @@
-const Filestorage = require('../../lib/Filestorage');
+const FileStorage = require('../../lib/FileStorage');
 
 const { defineSupportCode } = require('cucumber');
 
 defineSupportCode(function({ Given, Then }) {
   Given('в конструктор передали объект соединения и заголовок {stringInDoubleQuotes} вторым параметром', function (title, callback) {
-    this.payload.filestorage = new Filestorage(this.connection, { title });
+    this.payload.filestorage = new FileStorage(this.connection, { title });
     callback();
   });
   Then('соединение сохранится в поле {stringInDoubleQuotes}', function (field, callback) {

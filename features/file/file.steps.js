@@ -4,7 +4,7 @@ const path = require('path');
 const mongodb = require('mongodb');
 const trim = require('lodash/trim');
 
-const Filestorage = require('../../lib/Filestorage');
+const FileStorage = require('../../lib/FileStorage');
 
 defineSupportCode(function({ Given, Then }) {
   // write
@@ -14,7 +14,7 @@ defineSupportCode(function({ Given, Then }) {
   });
 
   Given('мы его запишем его через метод {stringInDoubleQuotes} в хранилище {stringInDoubleQuotes}, имя файла {stringInDoubleQuotes}', function (method, title, filename) {
-    this.payload.filestorage = new Filestorage(this.connection, { title });
+    this.payload.filestorage = new FileStorage(this.connection, { title });
     return this.payload.filestorage[method](this.payload.filestream, filename);
   });
 
@@ -32,7 +32,7 @@ defineSupportCode(function({ Given, Then }) {
   });
 
   Given('мы прочитаем файл {stringInDoubleQuotes} из хранилища {stringInDoubleQuotes} через метод {stringInDoubleQuotes}', function(filename, title, method) {
-    this.payload.filestorage = new Filestorage(this.connection, { title });
+    this.payload.filestorage = new FileStorage(this.connection, { title });
     return this.payload.filestorage[method](filename).
     then((stream) => {
       this.payload.filestream = stream;
@@ -51,7 +51,7 @@ defineSupportCode(function({ Given, Then }) {
 
   // remove
   Given('мы удалим файл {stringInDoubleQuotes} из хранилища {stringInDoubleQuotes} через метод {stringInDoubleQuotes}', function (filename, title, method) {
-    this.payload.filestorage = new Filestorage(this.connection, { title });
+    this.payload.filestorage = new FileStorage(this.connection, { title });
     return this.payload.filestorage[method](filename);
   });
 

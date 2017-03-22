@@ -4,7 +4,8 @@
   "description": "File storage module to save files into gridfs",
   "main": "index.js",
   "scripts": {
-    "test": "node ./node_modules/.bin/cucumber-js"
+    "test": "node ./node_modules/.bin/cucumber-js",
+    "eslint": "./node_modules/eslint/bin/eslint.js ./"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,14 @@
   "dependencies": {
     "mongodb": "^2.2.25"
   },
+  "pre-commit": [
+    "eslint",
+    "test"
+  ],
   "devDependencies": {
     "cucumber": "^2.0.0-rc.6",
     "eslint": "^3.18.0",
-    "mongoose": "^4.9.1"
+    "mongoose": "^4.9.1",
+    "pre-commit": "^1.2.2"
   }
 }
