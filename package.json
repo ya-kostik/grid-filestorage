@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "cucumber": "^2.0.0-rc.6",
-    "eslint": "^3.18.0"
+    "eslint": "^3.18.0",
+    "mongoose": "^4.9.1"
   }
 }
