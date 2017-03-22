@@ -8,7 +8,7 @@ defineSupportCode(function({ Before }) {
     if (!this.connection) {
       return connect(connectConfig).
       then((connection) => {
-        this.connection = connection;
+        this.connection = connection.db;
       });
     }
   });

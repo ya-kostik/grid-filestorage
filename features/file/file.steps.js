@@ -2,6 +2,7 @@ const { defineSupportCode } = require('cucumber');
 const fs = require('fs');
 const path = require('path');
 const mongodb = require('mongodb');
+const trim = require('lodash/trim');
 
 const Filestorage = require('../../lib/Filestorage');
 
@@ -18,20 +19,21 @@ defineSupportCode(function({ Given, Then }) {
   });
 
   Then('в Grid появляется файл {stringInDoubleQuotes}', function (filename, callback) {
-    mongodb.GridStore.exist(this.connection.db, filename, (err, exists) => {
+    mongodb.GridStore.exist(this.connection, filename, (err, exists) => {
       callback(!exists);
     });
   });
 
   // read
   Given('в Grid есть файл {stringInDoubleQuotes}', function(filename, callback) {
-    mongodb.GridStore.exist(this.connection.db, filename, (err, exists) => {
+    mongodb.GridStore.exist(this.connection, filename, (err, exists) => {
       callback(!exists);
     });
   });
 
-  Given('мы прочитаем {stringInDoubleQuotes} его через метод {stringInDoubleQuotes}', function(filename, method) {
-    this.payload.filestorage[method](filename).
+  Given('мы прочитаем файл {stringInDoubleQuotes} из хранилища {stringInDoubleQuotes} через метод {stringInDoubleQuotes}', function(filename, title, method) {
+    this.payload.filestorage = new Filestorage(this.connection, { title });
+    return this.payload.filestorage[method](filename).
     then((stream) => {
       this.payload.filestream = stream;
     });
@@ -41,9 +43,22 @@ defineSupportCode(function({ Given, Then }) {
     if (!this.payload.filestream) throw new Error('Stream is not defined');
     let data = '';
     this.payload.filestream.on('data', chunk => data += chunk);
-    this.payload.filestream.on('end', () => callback(data !== text));
+    this.payload.filestream.on('end', () => {
+      callback(trim(data) !== trim(text));
+    });
     this.payload.filestream.on('error', err => callback(err));
   });
 
   // remove
+  Given('мы удалим файл {stringInDoubleQuotes} из хранилища {stringInDoubleQuotes} через метод {stringInDoubleQuotes}', function (filename, title, method) {
+    this.payload.filestorage = new Filestorage(this.connection, { title });
+    return this.payload.filestorage[method](filename);
+  });
+
+  Then('{stringInDoubleQuotes} удалится из Grid, и мы не сможем его прочитать', function (filename, callback) {
+    mongodb.GridStore.exist(this.connection, filename, (err, exists) => {
+      callback(exists);
+    });
+  });
+
 });
