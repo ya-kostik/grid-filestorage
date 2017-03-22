@@ -27,17 +27,17 @@ function getConnectionUri(config) {
 function connect(config) {
   return new Promise((resolve, reject) => {
     mongoose.connect(getConnectionUri(config.connection), config.options);
-    const db = mongoose.connection;
+    const connection = mongoose.connection;
     const onError = err => {
       reject(err);
-      db.removeListener('open', onOpen);
+      connection.removeListener('open', onOpen);
     };
     const onOpen = () => {
-      resolve(db);
-      db.removeListener('error', onError);
+      resolve(connection);
+      connection.removeListener('error', onError);
     };
-    db.once('error', onError);
-    db.once('open', onOpen);
+    connection.once('error', onError);
+    connection.once('open', onOpen);
   });
 }
 
