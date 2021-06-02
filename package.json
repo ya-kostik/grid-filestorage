@@ -1,6 +1,6 @@
 {
   "name": "grid-filestorage",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "File storage module to save files into gridfs",
   "main": "index.js",
   "scripts": {
@@ -24,16 +24,11 @@
   },
   "homepage": "https://github.com/ya-kostik/grid-filestorage#readme",
   "dependencies": {
-    "mongodb": "^2.2.25"
+    "mongodb": "^3.6.9"
   },
-  "pre-commit": [
-    "eslint",
-    "test"
-  ],
   "devDependencies": {
     "cucumber": "^2.0.0-rc.6",
     "eslint": "^3.18.0",
-    "mongoose": "^4.9.1",
-    "pre-commit": "^1.2.2"
+    "mongoose": "^5.12.12"
   }
 }
